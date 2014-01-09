@@ -26,9 +26,13 @@ sudo chmod +x /etc/motd.tcl || exit 1
 ASCII_ART=`echo ${ASCII_ART} | tr '\n' "\\n"`
 sudo sed -i -e "s;ASCII_ART;${ASCII_ART};g" /etc/motd.tcl || exit 1
 
+# Add triggers
+sudo echo '/etc/motd.tcl' >> '/etc/profile'
+
 if [ -f "$HOME/.zshrc" ]; then
     echo '/etc/motd.tcl' >> "$HOME/.zshrc"
 fi
 
+# Show off
 /etc/motd.tcl
 
