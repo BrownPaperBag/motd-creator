@@ -1,13 +1,8 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root" 1>&2
-    exit 1
-fi
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo "Paste your ASCII art header. Use http://patorjk.com/software/taag/#p=display&f=Doom&t= to create it: "
+echo "Paste your ASCII art header. Use http://patorjk.com/software/taag/#p=display&f=Doom&t= to create it (CTRL-D when done pasting): "
 
 ASCII_ART=""
 
@@ -18,19 +13,22 @@ done
 
 echo "Installing tcl and fortune"
 
-apt-get install tcl fortune
+sudo apt-get install tcl fortune || exit 1
 
 echo "Removing current motd/n"
 
-cat /dev/null > /etc/motd
-cat /dev/null > /etc/motd.tail
+sudo cat /dev/null > /etc/motd || exit 1
+sudo cat /dev/null > /etc/motd.tail || exit 1
 
-cp -v "$DIR/motd-template.tcl" /etc/motd.tcl
-chmod +x /etc/motd.tcl
+sudo cp -v "$DIR/motd-template.tcl" /etc/motd.tcl || exit 1
+sudo chmod +x /etc/motd.tcl || exit 1
 
 ASCII_ART=`echo ${ASCII_ART} | tr '\n' "\\n"`
-sed -i -e "s;ASCII_ART;${ASCII_ART};g" /etc/motd.tcl
+sudo sed -i -e "s;ASCII_ART;${ASCII_ART};g" /etc/motd.tcl || exit 1
 
-# Show it working to the user
+if [ -f "$HOME/.zshrc" ]; then
+    echo '/etc/motd.tcl' >> "$HOME/.zshrc"
+fi
+
 /etc/motd.tcl
 
