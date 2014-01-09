@@ -7,6 +7,8 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+git clone https://github.com/BrownPaperBag/motd-creator.git
+
 echo "Paste your ASCII art header. Use http://patorjk.com/software/taag/#p=display&f=Doom&t= to create it: "
 
 ASCII_ART=""
@@ -25,7 +27,7 @@ echo "Removing current motd/n"
 cat /dev/null > /etc/motd
 cat /dev/null > /etc/motd.tail
 
-cp -v "$DIR/motd-template.tcl" /etc/motd.tcl
+cp -v "$DIR/motd-creator/motd-template.tcl" /etc/motd.tcl
 chmod +x /etc/motd.tcl
 
 sed -i -e "s/ASCII_ART/$ASCII_ART/g" /etc/motd.tcl
