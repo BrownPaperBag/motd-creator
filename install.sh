@@ -30,7 +30,8 @@ cat /dev/null > /etc/motd.tail
 cp -v "$DIR/motd-creator/motd-template.tcl" /etc/motd.tcl
 chmod +x /etc/motd.tcl
 
-sed -i -e "s/ASCII_ART/$ASCII_ART/g" /etc/motd.tcl
+ASCII_ART=`echo ${ASCII_ART} | tr '\n' "\\n"`
+sed -i -e "s/ASCII_ART/${ASCII_ART}/g" /etc/motd.tcl
 
 /etc/motd.tcl
 
