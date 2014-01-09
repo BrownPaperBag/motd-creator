@@ -7,7 +7,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-git clone https://github.com/BrownPaperBag/motd-creator.git
+git clone https://github.com/BrownPaperBag/motd-creator.git "$DIR/motd-creator"
 
 echo "Paste your ASCII art header. Use http://patorjk.com/software/taag/#p=display&f=Doom&t= to create it: "
 
